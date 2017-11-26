@@ -20,7 +20,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     
     //var under Test 3
     var audioPlayer : AVAudioPlayer!
-    
+    var selectedSoundFileName : String = ""
     let soundArray = ["note1", "note2", "note3", "note4", "note5", "note6", "note7"]
     
 //// under Test 1
@@ -36,7 +36,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     @IBAction func notePressed(_ sender: UIButton) {
         print(sender.tag)
         
-        var selectedSoundFileName : String = soundArray[sender.tag]
+        selectedSoundFileName : String = soundArray[sender.tag - 1]
         print(selectedSoundFileName)
         
         
@@ -46,7 +46,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     func playSound() {
         
         //under Test 3
-        let soundURL = Bundle.main.url(forResource: "note1", withExtension: "wav")
+        let soundURL = Bundle.main.url(forResource: selectedSoundFileName, withExtension: "wav")
         
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: soundURL!)
