@@ -7,15 +7,21 @@
 //
 
 import UIKit
+//under Test 3
+import AVFoundation
 
-// under Test 2
-import AudioToolbox
+//// under Test 2
+//import AudioToolbox
 
 //// under Test 1
 //import AVFoundation
 
-class ViewController: UIViewController{
+class ViewController: UIViewController, AVAudioPlayerDelegate {
     
+    //var under Test 3
+    var audioPlayer : AVAudioPlayer!
+    
+    let soundArray = ["note1", "note2", "note3", "note4", "note5", "note6", "note7"]
     
 //// under Test 1
 //    var audioPlayer = AVAudioPlayer()
@@ -28,20 +34,46 @@ class ViewController: UIViewController{
 
 
     @IBAction func notePressed(_ sender: UIButton) {
+        print(sender.tag)
         
-        if let soundURL = Bundle.main.url(forResource: "note1", withExtension: "wav") {
-            var mySound: SystemSoundID = 0
-            AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound);
-            
-            //PLAY
-            AudioServicesPlaySystemSound(mySound)
+        var selectedSoundFileName : String = soundArray[sender.tag]
+        print(selectedSoundFileName)
+        
+        
+        playSound()
+    }
+    
+    func playSound() {
+        
+        //under Test 3
+        let soundURL = Bundle.main.url(forResource: "note1", withExtension: "wav")
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL!)
         }
+        catch {
+            print(error)
+        }
+        audioPlayer.play()
+        
+    }
+    
+    
+    
+//        //under Test 2
+//        if let soundURL = Bundle.main.url(forResource: "note1", withExtension: "wav") {
+//            var mySound: SystemSoundID = 0
+//            AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound);
+//
+//            //PLAY
+//            AudioServicesPlaySystemSound(mySound)
+//        }
         
         
         
 //        // under Test 1
 //        let url = Bundle.main.url(forResource: "note1", withExtension: "wav")!
-//        print(sender.tag)
+//
 //
 //        do {
 //            player = try AVAudioPlayer(contentsOf: url)
@@ -52,8 +84,6 @@ class ViewController: UIViewController{
 //        } catch let error as Error {
 //            print(error)
 //        }
-        
-    }
     
   
 
